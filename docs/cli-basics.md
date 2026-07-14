@@ -28,7 +28,7 @@
 
 **Useful output modifiers:**
 
-```text
+```text linenums="1"
 show full-configuration | grep -f ospf     # show blocks containing "ospf"
 get router info routing-table all | grep 10.10.
 diagnose sys session list | grep -c ""      # count lines (session count)

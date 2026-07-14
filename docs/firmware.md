@@ -14,7 +14,7 @@
 
 ## Upgrade via TFTP
 
-```text
+```text linenums="1"
 execute restore image tftp FGT_200F-v7.4.4.F-build2662-FORTINET.out 10.99.0.50
 ```
 
@@ -23,7 +23,7 @@ execute restore image tftp FGT_200F-v7.4.4.F-build2662-FORTINET.out 10.99.0.50
 
 ## Upgrade via FortiGuard (no image file handling)
 
-```text
+```text linenums="1"
 execute upgrade fortiguard list          # list available versions for this model
 execute upgrade fortiguard <version-id>  # download+install directly (7.2+ syntax varies: also "execute restore image fortiguard <ver>")
 ```
@@ -32,7 +32,7 @@ execute upgrade fortiguard <version-id>  # download+install directly (7.2+ synta
 
 ## Rollback
 
-```text
+```text linenums="1"
 diagnose sys flash list
 execute set-next-reboot {primary | secondary}
 execute reboot

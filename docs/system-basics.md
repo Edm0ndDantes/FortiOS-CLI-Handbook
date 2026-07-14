@@ -2,7 +2,7 @@
 
 ## Hostname & Timezone
 
-```text
+```text linenums="1"
 config system global
     set hostname FGT-EDGE-01
     set timezone "Europe/Athens"        # FortiOS 7.4+: named timezones
@@ -18,7 +18,7 @@ end
 
 ## DNS (System Resolver)
 
-```text
+```text linenums="1"
 config system dns
     set primary 96.45.45.45
     set secondary 96.45.46.46
@@ -36,7 +36,7 @@ end
 
 **DNS server / forwarder on an interface (FortiGate answering client DNS):**
 
-```text
+```text linenums="1"
 config system dns-database
     edit "corp.example.com"
         set domain "corp.example.com"
@@ -69,7 +69,7 @@ end
 
 ## NTP
 
-```text
+```text linenums="1"
 config system ntp
     set ntpsync enable
     set type custom

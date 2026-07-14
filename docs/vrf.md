@@ -1,6 +1,6 @@
 # VRFs
 
-```text
+```text linenums="1"
 config system global
     set vrf-mode enable            # not required on newer builds; VRFs 0-251 available by default in 7.x
 end

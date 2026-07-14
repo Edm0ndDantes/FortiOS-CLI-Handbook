@@ -2,7 +2,7 @@
 
 ## Active-Passive FGCP Cluster
 
-```text
+```text linenums="1"
 config system ha
     set group-id 21
     set group-name "EDGE-HA"
@@ -50,7 +50,7 @@ end
 
 **Example — `get system ha status` (truncated):**
 
-```text
+```text linenums="1"
 HA Health Status: OK
 Model: FortiGate-200F
 Mode: HA A-P

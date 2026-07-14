@@ -2,7 +2,7 @@
 
 ## Physical Interface Basics
 
-```text
+```text linenums="1"
 config system interface
     edit "internal1"
         set mode static
@@ -30,7 +30,7 @@ end
 
 ## VLAN Interfaces (802.1Q)
 
-```text
+```text linenums="1"
 config system interface
     edit "vlan100-users"
         set vdom "root"
@@ -58,7 +58,7 @@ end
 
 ## Loopback Interfaces
 
-```text
+```text linenums="1"
 config system interface
     edit "lo-mgmt"
         set vdom "root"
@@ -74,7 +74,7 @@ end
 
 ## Link Aggregation (LACP / 802.3ad)
 
-```text
+```text linenums="1"
 config system interface
     edit "lag1"
         set vdom "root"
@@ -100,7 +100,7 @@ end
 
 ## Zones
 
-```text
+```text linenums="1"
 config system zone
     edit "Z-INSIDE"
         set interface "vlan100-users" "vlan200-voice" "lag1"
@@ -115,7 +115,7 @@ end
 
 ## Software Switch (use sparingly)
 
-```text
+```text linenums="1"
 config system switch-interface
     edit "sw-lan"
         set vdom "root"

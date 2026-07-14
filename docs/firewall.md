@@ -2,7 +2,7 @@
 
 ## Address & Service Objects
 
-```text
+```text linenums="1"
 config firewall address
     edit "NET-Users"
         set subnet 10.100.0.0 255.255.255.0
@@ -43,7 +43,7 @@ end
 
 ## Firewall Policies
 
-```text
+```text linenums="1"
 config firewall policy
     edit 10
         set name "Users-to-Internet"

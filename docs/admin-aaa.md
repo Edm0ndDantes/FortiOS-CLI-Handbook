@@ -2,7 +2,7 @@
 
 ## Local Admin Accounts, Profiles & Trusted Hosts
 
-```text
+```text linenums="1"
 config system accprofile
     edit "readonly-noc"
         set secfabgrp read
@@ -36,7 +36,7 @@ end
 
 ## RADIUS Authentication for Admins
 
-```text
+```text linenums="1"
 config user radius
     edit "ISE-RADIUS"
         set server "10.50.1.10"
@@ -78,7 +78,7 @@ end
 
 ## TACACS+ Authentication for Admins
 
-```text
+```text linenums="1"
 config user tacacs+
     edit "TAC-SRV"
         set server "10.50.1.20"
@@ -111,7 +111,7 @@ end
 
 ## Management Access on Interfaces
 
-```text
+```text linenums="1"
 config system interface
     edit "wan1"
         set allowaccess ping

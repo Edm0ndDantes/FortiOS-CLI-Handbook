@@ -18,7 +18,7 @@
 - HA: back up from the **primary**; the config covers the cluster (HA-reserved mgmt settings are per-device).
 - Automate: `config system auto-script` can schedule `execute backup config ...` on an interval, or pull backups via the REST API (`/api/v2/monitor/system/config/backup`).
 
-```text
+```text linenums="1"
 config system auto-script
     edit "nightly-backup"
         set interval 86400

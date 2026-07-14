@@ -1,6 +1,6 @@
 # Static Routing
 
-```text
+```text linenums="1"
 config router static
     edit 1
         set dst 0.0.0.0/0
@@ -45,7 +45,7 @@ end
 
 **ECMP (equal-cost multipath):** two routes with identical dst/distance/priority load-balance. Algorithm:
 
-```text
+```text linenums="1"
 config system settings
     set v4-ecmp-mode source-ip-based   # or usage-based / weight-based / source-dest-ip-based
 end
@@ -57,7 +57,7 @@ end
 
 **Policy-based routing (PBR):**
 
-```text
+```text linenums="1"
 config router policy
     edit 1
         set input-device "vlan100-users"

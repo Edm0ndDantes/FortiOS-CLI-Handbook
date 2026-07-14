@@ -2,7 +2,7 @@
 
 ## Route-Based Site-to-Site (IKEv2, static peers)
 
-```text
+```text linenums="1"
 config vpn ipsec phase1-interface
     edit "S2S-BRANCH1"
         set interface "wan1"
@@ -92,7 +92,7 @@ end
 
 ## IPsec with BGP over the Tunnel (hub-and-spoke friendly)
 
-```text
+```text linenums="1"
 config router bgp
     config neighbor
         edit "10.254.1.2"
@@ -108,7 +108,7 @@ end
 
 ## Dialup / Dynamic-Peer Phase 1
 
-```text
+```text linenums="1"
 config vpn ipsec phase1-interface
     edit "DIALUP-SPOKES"
         set type dynamic
@@ -138,7 +138,7 @@ end
 
 **Example — `diagnose vpn tunnel list name S2S-BRANCH1` (truncated):**
 
-```text
+```text linenums="1"
 name=S2S-BRANCH1 ver=2 serial=3 203.0.113.5:0->198.51.100.50:0 tun_id=10.254.1.2
 bound_if=5 lgwy=static/1 tun=intf/0 mode=auto/1 encap=none/528 options[0210]=create_dev frag-rfc
 proxyid_num=1 child_num=0 refcnt=14 ilast=2 olast=2 ad=/0

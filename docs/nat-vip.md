@@ -2,7 +2,7 @@
 
 ## Source NAT with IP Pools
 
-```text
+```text linenums="1"
 config firewall ippool
     edit "POOL-Public"
         set type overload
@@ -24,7 +24,7 @@ end
 
 ## Virtual IPs (DNAT)
 
-```text
+```text linenums="1"
 config firewall vip
     edit "VIP-WebSrv-443"
         set extip 203.0.113.20

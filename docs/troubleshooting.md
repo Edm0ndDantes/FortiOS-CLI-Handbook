@@ -21,7 +21,7 @@
 
 ## Packet Sniffer
 
-```text
+```text linenums="1"
 diagnose sniffer packet <interface> '<filter>' <verbosity> <count> <timestamp>
 diagnose sniffer packet any 'host 10.20.0.5 and port 443' 4 100 l
 ```
@@ -33,7 +33,7 @@ diagnose sniffer packet any 'host 10.20.0.5 and port 443' 4 100 l
 
 **Example — verbosity 4:**
 
-```text
+```text linenums="1"
 interfaces=[any]
 filters=[host 10.20.0.5 and port 443]
 2.184936 vlan100-users in 10.100.0.23.51512 -> 10.20.0.5.443: syn 3067915582
@@ -48,7 +48,7 @@ filters=[host 10.20.0.5 and port 443]
 
 ## Flow Debug (why was it dropped?)
 
-```text
+```text linenums="1"
 diagnose debug reset
 diagnose debug flow filter clear
 diagnose debug flow filter addr 10.20.0.5
@@ -67,7 +67,7 @@ diagnose debug reset
 
 **Example output & interpretation:**
 
-```text
+```text linenums="1"
 id=65308 trace_id=7 func=print_pkt_detail line=5892 msg="vd-root:0 received a packet(proto=6, 10.100.0.23:51512->10.20.0.5:443) tun_id=0.0.0.0 from vlan100-users. flag [S], seq 3067915582"
 id=65308 trace_id=7 func=init_ip_session_common line=6077 msg="allocate a new session-00a1b2c3"
 id=65308 trace_id=7 func=vf_ip_route_input_common line=2605 msg="find a route: flag=04000000 gw-10.254.1.2 via S2S-BRANCH1"
@@ -81,7 +81,7 @@ id=65308 trace_id=7 func=fw_forward_handler line=990 msg="Denied by forward poli
 
 ## Session Table
 
-```text
+```text linenums="1"
 diagnose sys session filter clear
 diagnose sys session filter dst 10.20.0.5
 diagnose sys session filter dport 443
@@ -91,7 +91,7 @@ diagnose sys session clear      # WARNING: with no filter set this clears ALL se
 
 **Example session (truncated):**
 
-```text
+```text linenums="1"
 session info: proto=6 proto_state=01 duration=94 expire=3506 timeout=3600 flags=00000000
 origin-shaper=SH-Voice prio=1 ...
 state=log may_dirty npu
@@ -123,11 +123,11 @@ policy_id=40 auth_info=0 chk_client_info=0 vd=0
 
 **Conserve mode:** when free memory drops below thresholds the box enters conserve mode (new sessions/AV inspection restricted). Detect with:
 
-```text
+```text linenums="1"
 diagnose hardware sysinfo conserve
 ```
 
-```text
+```text linenums="1"
 memory conserve mode:   off
 total RAM:              8192 MB
 memory used:            4211 MB  51% of total RAM

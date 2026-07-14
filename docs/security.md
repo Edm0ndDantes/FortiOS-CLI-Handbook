@@ -2,7 +2,7 @@
 
 ## Global Hardening
 
-```text
+```text linenums="1"
 config system global
     set admintimeout 10
     set admin-lockout-threshold 3
@@ -33,7 +33,7 @@ end
 - `admin-concurrent disable` — no simultaneous logins with the same account (accountability).
 - `autoinstall-* disable` — prevents auto-loading config/firmware from USB at boot (physical attack vector).
 
-```text
+```text linenums="1"
 config system password-policy
     set status enable
     set apply-to admin-password ipsec-preshared-key
@@ -52,7 +52,7 @@ end
 
 ## Attack-Surface Reduction
 
-```text
+```text linenums="1"
 config system interface
     edit "wan1"
         set allowaccess ""            # nothing; or "ping" only if needed

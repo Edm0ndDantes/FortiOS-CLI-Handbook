@@ -2,7 +2,7 @@
 
 ## Shared & Per-IP Shapers
 
-```text
+```text linenums="1"
 config firewall shaper traffic-shaper
     edit "SH-Guest-50M"
         set guaranteed-bandwidth 0
@@ -37,7 +37,7 @@ end
 
 ## Traffic Shaping Policies (v6.4+ model)
 
-```text
+```text linenums="1"
 config firewall shaping-policy
     edit 1
         set name "Shape-Voice"
@@ -64,7 +64,7 @@ end
 
 ## Interface Egress Shaping & Shaping Profiles (CBQ-style)
 
-```text
+```text linenums="1"
 config firewall shaping-profile
     edit "PROF-WAN"
         set type policing            # or "queuing" on supported NP7/SoC ports
@@ -108,7 +108,7 @@ end
 
 **Example — `diagnose firewall shaper traffic-shaper list` (one entry):**
 
-```text
+```text linenums="1"
 name SH-Voice
 maximum-bandwidth 2560 KB/sec
 guaranteed-bandwidth 1280 KB/sec

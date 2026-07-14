@@ -1,6 +1,6 @@
 # GRE Tunnels
 
-```text
+```text linenums="1"
 config system gre-tunnel
     edit "GRE-DC2"
         set interface "wan1"

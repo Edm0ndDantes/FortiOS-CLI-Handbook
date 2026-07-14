@@ -3,7 +3,7 @@
 
 ## OSPF
 
-```text
+```text linenums="1"
 config router ospf
     set router-id 10.255.255.1
     config area
@@ -63,7 +63,7 @@ end
 
 **Example — `get router info ospf neighbor`:**
 
-```text
+```text linenums="1"
 OSPF process 0, VRF 0:
 Neighbor ID     Pri   State           Dead Time   Address         Interface
 10.255.255.2      1   Full/DR         00:00:36    10.10.10.2      internal1
@@ -75,7 +75,7 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 
 ## BGP
 
-```text
+```text linenums="1"
 config router bgp
     set as 65010
     set router-id 10.255.255.1
@@ -119,7 +119,7 @@ end
 
 **Route-maps and prefix-lists:**
 
-```text
+```text linenums="1"
 config router prefix-list
     edit "PL-DEFAULT-ONLY"
         config rule
@@ -161,7 +161,7 @@ end
 
 **Example — `get router info bgp summary`:**
 
-```text
+```text linenums="1"
 BGP router identifier 10.255.255.1, local AS number 65010
 Neighbor        V   AS     MsgRcvd MsgSent  TblVer InQ OutQ Up/Down    State/PfxRcd
 203.0.113.1     4   65001   152344  151201       9   0    0  5d02h11m         187
