@@ -1,0 +1,61 @@
+site_name: FortiOS CLI Handbook
+site_url: https://fortios-cli.example
+theme:
+  name: material
+  font:
+    code: Red Hat Mono
+  logo: assets/Router-Firewall.svg
+  favicon: assets/Router-Firewall.svg
+  features:
+    - navigation.footer
+    - navigation.path
+    - navigation.indexes
+    - toc.follow
+    - navigation.expand
+    - navigation.sections
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+  palette:
+    scheme: slate
+    primary: orange
+nav: 
+  - Introduction and Contents: fortios-cli-cheatsheet.md
+  - CLI Basics & Navigation: cli-basics.md
+  - System Basics: system-basics.md
+  - Admin Access & AAA: admin-aaa.md
+  - Interfaces: interfaces.md
+  - VRFs: vrf.md
+  - Static Routing: static-routing.md
+  - Dynamic Routing: dynamic-routing.md
+  - Firewall Objects & Policies: firewall.md
+  - NAT & VIPs: nat-vip.md
+  - IPsec VPN: ipsec.md
+  - GRE Tunnels: gre.md
+  - High Availability: ha.md
+  - QoS: qos.md
+  - Hardening & Security Best Practices: security.md
+  - Firmware: firmware.md
+  - Configuration Management: config.md
+  - Troubleshooting: troubleshooting.md
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+
+extra:
+  social:
+    - icon: simple/github
+      link: https://github.com/Edm0ndDantes
