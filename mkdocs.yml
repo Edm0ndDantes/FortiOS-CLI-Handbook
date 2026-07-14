@@ -20,7 +20,7 @@ theme:
     scheme: slate
     primary: orange
 nav: 
-  - Introduction and Contents: fortios-cli-cheatsheet.md
+  - Introduction and Contents: index.md
   - CLI Basics & Navigation: cli-basics.md
   - System Basics: system-basics.md
   - Admin Access & AAA: admin-aaa.md
