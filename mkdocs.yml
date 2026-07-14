@@ -1,5 +1,5 @@
 site_name: FortiOS CLI Handbook
-site_url: https://fortios-cli.example
+site_url: https://edm0nddantes.github.io/FortiOS-CLI-Handbook/
 theme:
   name: material
   font:
