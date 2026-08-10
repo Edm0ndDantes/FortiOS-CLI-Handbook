@@ -1,0 +1,1821 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://edm0nddantes.github.io/FortiOS-CLI-Handbook/dynamic-routing/">
+      
+      
+        <link rel="prev" href="../static-routing/">
+      
+      
+        <link rel="next" href="../firewall/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/Router-Firewall.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Dynamic Routing - FortiOS CLI Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dynamic-routing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="FortiOS CLI Handbook" class="md-header__button md-logo" aria-label="FortiOS CLI Handbook" data-md-component="logo">
+      
+  <img src="../assets/Router-Firewall.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FortiOS CLI Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Dynamic Routing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="FortiOS CLI Handbook" class="md-nav__button md-logo" aria-label="FortiOS CLI Handbook" data-md-component="logo">
+      
+  <img src="../assets/Router-Firewall.svg" alt="logo">
+
+    </a>
+    FortiOS CLI Handbook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction and Contents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Basics & Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin-aaa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Admin Access & AAA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vrf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VRFs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../static-routing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static Routing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Routing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Routing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ospf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OSPF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ospf1-process-level-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.1 Process-Level Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf2-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.2 Areas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf3-enabling-ospf-network-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.3 Enabling OSPF: Network Statements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf4-per-interface-parameters-ospf-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.4 Per-Interface Parameters (ospf-interface)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf5-redistribution-asbr-role-summarization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.5 Redistribution (ASBR Role) &amp; Summarization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf6-verification-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.6 Verification Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BGP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bgp1-process-level-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.1 Process-Level Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp2-neighbors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.2 Neighbors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp3-originating-routes-networks-redistribution-aggregation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.3 Originating Routes: Networks, Redistribution, Aggregation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp4-policy-prefix-lists-route-maps-and-the-best-path-levers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.4 Policy: Prefix-Lists, Route-Maps, and the Best-Path Levers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp5-verification-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.5 Verification Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../firewall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firewall Objects & Policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nat-vip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NAT & VIPs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipsec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GRE Tunnels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    High Availability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    QoS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardening & Security Best Practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ospf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OSPF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ospf1-process-level-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.1 Process-Level Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf2-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.2 Areas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf3-enabling-ospf-network-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.3 Enabling OSPF: Network Statements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf4-per-interface-parameters-ospf-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.4 Per-Interface Parameters (ospf-interface)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf5-redistribution-asbr-role-summarization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.5 Redistribution (ASBR Role) &amp; Summarization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ospf6-verification-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OSPF.6 Verification Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BGP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bgp1-process-level-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.1 Process-Level Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp2-neighbors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.2 Neighbors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp3-originating-routes-networks-redistribution-aggregation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.3 Originating Routes: Networks, Redistribution, Aggregation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp4-policy-prefix-lists-route-maps-and-the-best-path-levers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.4 Policy: Prefix-Lists, Route-Maps, and the Best-Path Levers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp5-verification-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BGP.5 Verification Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="dynamic-routing">Dynamic Routing</h1>
+<h3 id="ospf">OSPF</h3>
+<p><strong>Theory recap in one paragraph:</strong> </p>
+<ul>
+<li>OSPF is a link-state IGP (RFC 2328). </li>
+<li>Every router floods Link-State Advertisements (LSAs) describing its links.</li>
+<li>All routers in an area build an identical Link-State Database (LSDB) and independently run Dijkstra's SPF algorithm to compute shortest paths, using <strong>cost</strong> as the metric. </li>
+<li>Routers discover each other with multicast <strong>Hello</strong> packets (224.0.0.5), progress through an adjacency state machine (Down → Init → 2-Way → ExStart → Exchange → Loading → <strong>Full</strong>), and on multi-access segments elect a <strong>Designated Router (DR)</strong> and <strong>Backup DR (BDR)</strong> to reduce adjacency count from O(n²) to O(n). </li>
+<li>Areas bound LSA flooding</li>
+<li>Area 0.0.0.0 is the <strong>backbone</strong> that all other areas must attach to. </li>
+<li>Routers injecting external routes (e.g. redistributed BGP/static) are <strong>ASBRs</strong>; routers joining areas are <strong>ABRs</strong>.</li>
+</ul>
+<h4 id="ospf1-process-level-configuration">OSPF.1 Process-Level Configuration</h4>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>config router ospf
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>    set router-id 10.255.255.1
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>    set default-information-originate enable    # Advertise 0.0.0.0/0 as a Type-5 LSA
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>    set distance 110                            # Administrative distance of OSPF routes
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>    set spf-timers 5 10                         # SPF schedule delay / hold between runs (s)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>    set rfc1583-compatible disable              # External path preference per RFC 2328 (modern)
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>    set restart-mode graceful-restart           # Hitless restart / HA failover support
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>    set restart-period 120
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>router-id</code> — the 32-bit identifier under which this router appears in <strong>every LSA it originates</strong> and in the LSDB. OSPF theory: the RID must be unique in the domain; it also breaks ties in DR/BDR election. FortiOS will auto-pick an interface IP if unset, but always set it explicitly (conventionally a loopback IP) — an RID change forces all adjacencies and the router's LSAs to be rebuilt.</li>
+<li><code>default-information-originate</code> — makes this router originate <code>0.0.0.0/0</code> as a <strong>Type-5 AS-external LSA</strong>, turning it into an ASBR. By default it only advertises the default if one exists in its own routing table (e.g. learned via BGP from the ISP); append <code>always</code> to originate unconditionally. This is exactly the pattern in Fortinet's basic example, where the BGP-facing router advertises the default into the OSPF domain.</li>
+<li><code>distance</code> — administrative distance (110 by default) decides how OSPF routes compete against other <strong>protocols</strong> in the RIB. This is FortiOS route-selection, not OSPF theory: inside OSPF, path selection is purely by cost and LSA type (intra-area O &gt; inter-area IA &gt; E1 &gt; E2).</li>
+<li><code>spf-timers &lt;delay&gt; &lt;hold&gt;</code> — SPF throttling. Link-state theory: every LSDB change requires a full (or incremental) Dijkstra re-run; the delay dampens churn during flapping at the price of convergence speed.</li>
+<li><code>rfc1583-compatible</code> — changes tie-breaking for AS-external paths. Must match on <strong>all</strong> routers in the domain or routing loops for external routes are possible; <code>disable</code> (RFC 2328 behavior) is the modern choice.</li>
+<li><code>restart-mode graceful-restart</code> — implements OSPF Graceful Restart (RFC 3623): during a restart/HA failover the router's neighbors keep forwarding on its behalf ("helper mode") instead of tearing down adjacencies and reflooding, avoiding a domain-wide SPF event.</li>
+</ul>
+<h4 id="ospf2-areas">OSPF.2 Areas</h4>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>config router ospf
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>    config area
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>        edit 0.0.0.0                            # Backbone — mandatory transit for all areas
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>        next
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>        edit 0.0.0.51
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>            set type stub                       # or: nssa / regular
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>            set default-cost 10                 # Cost of the injected ::/0 summary into the stub
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>            set authentication message-digest   # Area-wide auth default (overridable per interface)
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>        next
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>    end
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>edit &lt;area-id&gt;</code> — areas are LSA flooding boundaries. Type-1 (Router) and Type-2 (Network) LSAs never leave their area; ABRs summarize reachability between areas as <strong>Type-3 Summary LSAs</strong>. Area <code>0.0.0.0</code> is the backbone: OSPF's loop-prevention model requires all inter-area traffic to transit it.</li>
+<li><code>type regular</code> — normal area: carries Type-3 summaries and Type-5 externals.</li>
+<li><code>type stub</code> — blocks <strong>Type-5 external LSAs</strong>; the ABR injects a default Type-3 route instead (its cost = <code>default-cost</code>). Use where routers don't need full external routing knowledge — shrinks LSDB and SPF load.</li>
+<li><code>type nssa</code> — "not-so-stubby": like a stub, but still allows local redistribution. Externals injected inside the area travel as <strong>Type-7 LSAs</strong>, which the ABR translates to Type-5 at the area edge. <code>set nssa-default-information-originate enable</code> injects a default into the NSSA.</li>
+<li><code>authentication</code> — area-level default for OSPFv2 packet authentication (<code>none</code>/<code>text</code>/<code>message-digest</code>); per-interface settings override it. Authentication protects the Hello/LSU exchange from rogue adjacency injection.</li>
+</ul>
+<h4 id="ospf3-enabling-ospf-network-statements">OSPF.3 Enabling OSPF: Network Statements</h4>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>config router ospf
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>    config network
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>        edit 1
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>            set prefix 10.11.0.0 255.255.0.0
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>            set area 0.0.0.0
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>        next
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>        edit 2
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>            set prefix 192.168.102.0 255.255.255.0
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>            set area 0.0.0.0
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>        next
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>    end
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li>A <code>network</code> entry does two things at once, exactly as in classic OSPF theory: any interface whose IP falls inside <code>prefix</code> (1) starts sending/listening for Hellos, i.e. runs OSPF, and (2) has its connected subnet described in this router's <strong>Type-1 Router LSA</strong> in the given <code>area</code>.</li>
+<li>A broad statement like <code>10.11.0.0/16</code> enrolls every matching interface at once (Fortinet's example uses this to cover all inter-router links); use exact /24s or interface-specific statements when you want tighter control over where adjacencies can form.</li>
+<li>To advertise a subnet <strong>without</strong> forming adjacencies on it (e.g. a user VLAN), keep it in a network statement but make the interface passive:</li>
+</ul>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>config router ospf
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>    set passive-interface &quot;VLAN100-Users&quot;
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li>Passive interfaces suppress Hellos (no neighbors possible) but the prefix stays in the Router LSA — the standard way to advertise stub networks while eliminating the attack/misconfig surface of unnecessary adjacencies.</li>
+</ul>
+<h4 id="ospf4-per-interface-parameters-ospf-interface">OSPF.4 Per-Interface Parameters (<code>ospf-interface</code>)</h4>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>config router ospf
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>    config ospf-interface
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>        edit &quot;OSPF-Core-P2P&quot;
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>            set interface &quot;Agg1&quot;
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>            set network-type point-to-point     # broadcast | point-to-point | p2mp | non-broadcast
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>            set cost 10                         # SPF metric of this link (0 = auto)
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a>            set hello-interval 10               # Must match neighbor
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>            set dead-interval 40                # Must match neighbor (typ. 4x hello)
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a>            set priority 255                    # DR election weight (0 = never DR)
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a>            set authentication message-digest
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a>            set md5-keys                        # config md5-keys → edit &lt;id&gt; → set key-string
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a>            set mtu-ignore disable
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a>        next
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a>    end
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>network-type</code> — tells OSPF what the L2 segment looks like, which drives its behavior:</li>
+<li><code>broadcast</code> (default on Ethernet) — Hellos are multicast, a <strong>DR/BDR is elected</strong>, and all routers form full adjacencies only with DR/BDR (everyone else stays in 2-Way). The DR originates the <strong>Type-2 Network LSA</strong> representing the segment.</li>
+<li><code>point-to-point</code> — <strong>no DR/BDR election</strong>, adjacency forms directly. Use on any Ethernet link with exactly two routers (/30, /31): faster convergence and one less failure mode. This is why the neighbor state shows <code>Full/ -</code> on P2P links but <code>Full/DR</code> or <code>Full/Backup</code> on broadcast segments.</li>
+<li><code>point-to-multipoint</code> / <code>non-broadcast</code> — for NBMA topologies (rare today); neighbors may need static definition under <code>config neighbor</code>.</li>
+<li><code>priority</code> — DR election input on broadcast segments: highest priority wins, ties broken by highest RID; <code>0</code> makes the router ineligible. Fortinet's example sets 255 on the intended DR and 250 on the intended BDR. Note OSPF's election is <strong>non-preemptive</strong> — a new higher-priority router won't displace a sitting DR until the DR fails, so priorities only guarantee outcomes if set before the segment converges.</li>
+<li><code>cost</code> — OSPF's metric. SPF computes each route's total cost as the <strong>sum of outgoing interface costs</strong> along the path. FortiOS: <code>0</code> = auto-derive from bandwidth (reference-bandwidth ÷ interface bandwidth); set explicit values on links you steer traffic with. Equal total costs to the same prefix → ECMP (as seen when a destination shows two next-hops with identical <code>[110/2]</code>).</li>
+<li><code>hello-interval</code> / <code>dead-interval</code> — the adjacency keepalive machinery. Both values are carried <strong>inside the Hello packet</strong> and <em>must match</em> between neighbors, or Hellos are rejected and the pair never leaves Init/Down — the single most common OSPF misconfig. Dead-interval (typically 4× hello) is how long silence is tolerated before the neighbor is declared down and LSAs are reflooded.</li>
+<li><code>authentication</code> + <code>md5-keys</code> — per-interface auth (overrides the area default). <code>message-digest</code> puts an MD5 hash in every OSPF packet: neighbors with wrong/missing keys stay invisible (stuck Down/Init). Newer builds also support keychains/HMAC-SHA via <code>set keychain</code>.</li>
+<li><code>mtu-ignore</code> — during <strong>ExStart</strong>, Database Description packets carry the interface MTU; a mismatch stalls the adjacency in ExStart/Exchange by design (to prevent un-fragmentable LSU loss). <code>enable</code> skips the check — a workaround, but fixing the MTU is the correct repair.</li>
+</ul>
+<h4 id="ospf5-redistribution-asbr-role-summarization">OSPF.5 Redistribution (ASBR Role) &amp; Summarization</h4>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>config router ospf
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>    config redistribute &quot;bgp&quot;
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>        set status enable
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>        set metric 10
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>        set metric-type 2                       # E2 (fixed metric) | 1 = E1 (metric grows)
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>        set routemap &quot;RM-BGP-TO-OSPF&quot;           # Filter/tag what enters OSPF
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>    end
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>    config summary-address
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>        edit 1
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>            set prefix 172.16.0.0 255.240.0.0   # Summarize externals at the ASBR
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>        next
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>    end
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>config redistribute</code> (<code>bgp</code>, <code>static</code>, <code>connected</code>, <code>rip</code>, <code>isis</code>) — makes the router an <strong>ASBR</strong>: each imported route is originated as a <strong>Type-5 AS-external LSA</strong> flooded through all regular areas.</li>
+<li><code>metric-type</code> — pure OSPF theory: <strong>E2</strong> (default) carries a fixed external metric that never changes as it propagates — every router sees the same cost, so path choice toward the prefix follows cost-to-ASBR only as a tie-breaker. <strong>E1</strong> adds the internal path cost to the seed metric, so different routers can prefer different ASBRs — use E1 when multiple redistribution points exist and you want optimal exit selection.</li>
+<li><code>routemap</code> — always filter redistribution; uncontrolled BGP→OSPF import can flood the LSDB with a full table and melt SPF on small routers.</li>
+<li><code>summary-address</code> — aggregates <strong>external</strong> (Type-5/7) prefixes at the ASBR. Inter-area summarization of internal routes is done at the ABR instead with <code>config area → config range</code>. Both reduce LSDB size and, critically, stop distant flapping prefixes from triggering SPF everywhere.</li>
+</ul>
+<h4 id="ospf6-verification-commands">OSPF.6 Verification Commands</h4>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get router info ospf neighbor</code></td>
+<td>Adjacency table: neighbor RID, priority, FSM state, dead-timer countdown, and the interface. The go-to health check.</td>
+</tr>
+<tr>
+<td><code>get router info ospf status</code></td>
+<td>Process overview: RID, ASBR/ABR role, areas attached, SPF run count/last run, LSA counts.</td>
+</tr>
+<tr>
+<td><code>get router info ospf interface &lt;name&gt;</code></td>
+<td>Per-interface: area, network type, cost, DR/BDR identity, timers, neighbor count.</td>
+</tr>
+<tr>
+<td><code>get router info ospf database brief</code></td>
+<td>LSDB contents by LSA type — verify what is actually being flooded.</td>
+</tr>
+<tr>
+<td><code>get router info routing-table ospf</code></td>
+<td>Only the OSPF-derived routes in the RIB (look for <code>O</code>, <code>O IA</code>, <code>O E1/E2</code>, <code>O N1/N2</code>).</td>
+</tr>
+<tr>
+<td><code>diagnose ip router ospf all enable</code> + <code>diagnose ip router ospf level info</code> + <code>diagnose debug enable</code></td>
+<td>OSPF daemon debug (hello exchange, DD negotiation, SPF). Disable with <code>diagnose debug disable</code> and <code>diagnose ip router ospf all disable</code>.</td>
+</tr>
+<tr>
+<td><code>execute router clear ospf process</code></td>
+<td>Restart the OSPF process — full adjacency/LSDB rebuild (disruptive; last resort).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example — <code>get router info ospf neighbor</code>:</strong></p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a>OSPF process 0, VRF 0:
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>Neighbor ID     Pri   State           Dead Time   Address         Interface
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a>10.255.255.2    250   Full/Backup     00:00:36    10.11.101.2     port1
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a>10.255.255.3      1   Full/DR         00:00:38    10.11.102.3     port2
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>10.255.255.4      1   Full/ -         00:00:33    10.40.0.2       Agg1
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>State Full</code> — LSDBs are synchronized; this is the only fully healthy end-state for a needed adjacency. The suffix is the <strong>neighbor's</strong> DR role on that segment: <code>/DR</code>, <code>/Backup</code>, <code>/DROther</code>, or <code>/ -</code> on point-to-point links (no election).</li>
+<li><code>2-Way/DROther</code> on a broadcast segment is <strong>normal</strong> between two non-DR routers — not a fault.</li>
+<li><code>Pri</code> — the neighbor's advertised DR priority; explains current/next elections.</li>
+<li><code>Dead Time</code> counting down and resetting ≈ every hello-interval = Hellos flowing correctly.</li>
+<li>Failure signatures: stuck <strong>Init</strong> → neighbor doesn't list us in its Hellos (auth/key mismatch, one-way traffic, ACL); stuck <strong>ExStart/Exchange</strong> → MTU mismatch (see <code>mtu-ignore</code>); neighbor absent entirely → subnet/area/timer/network-type mismatch or interface not matched by any <code>network</code> statement.</li>
+</ul>
+<p><strong>Example — <code>get router info routing-table ospf</code>:</strong></p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>O*E2    0.0.0.0/0 [110/10] via 10.11.102.3, port2, 01:09:48
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>O       10.11.103.0/24 [110/2] via 10.11.102.3, port2, 00:54:49
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>                       [110/2] via 10.11.101.2, port1, 00:54:49
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>O E2    192.168.160.0/24 [110/10] via 10.11.102.3, port2, 01:45:21
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>[110/2]</code> — <code>[administrative distance / OSPF cost]</code>. The cost is the summed outgoing-interface costs computed by SPF.</li>
+<li>Two next-hops under one prefix — equal-cost paths installed as <strong>ECMP</strong>.</li>
+<li><code>O*E2 0.0.0.0/0</code> — the default originated by the ASBR via <code>default-information-originate</code>; <code>E2</code> marks it (like all default-mode redistributed routes) as an external whose metric stayed fixed (<code>10</code>) regardless of distance from the ASBR — the E2 behavior described above.</li>
+<li>Route codes decode the LSA machinery: <code>O</code> intra-area (Type-1/2), <code>O IA</code> inter-area (Type-3 from an ABR), <code>O E1/E2</code> external (Type-5 from an ASBR), <code>O N1/N2</code> NSSA-external (Type-7).</li>
+</ul>
+<h3 id="bgp">BGP</h3>
+<p><strong>Theory recap in one paragraph:</strong> BGP-4 (RFC 4271) is a <strong>path-vector</strong> exterior gateway protocol. Unlike link-state IGPs, routers don't build a topology map — they exchange full routes ("NLRI") with <strong>path attributes</strong> (AS_PATH, NEXT_HOP, LOCAL_PREF, MED, communities...) over a plain <strong>TCP session on port 179</strong>, and apply <em>policy</em> to choose and propagate paths. Loop prevention is the AS_PATH itself: a router rejects any route already containing its own AS number. Sessions between different ASes are <strong>eBGP</strong> (policy boundary, next-hop rewritten, TTL=1 by default); sessions inside one AS are <strong>iBGP</strong> (next-hop unchanged, and — because iBGP-learned routes are never re-advertised to other iBGP peers — you need a <strong>full mesh or route reflectors</strong>). There are no periodic re-floods: after the initial table exchange only <strong>incremental UPDATEs</strong> flow, with KEEPALIVEs (default 60 s) guarding a hold timer (default 180 s). A session walks the FSM Idle → Connect/Active → OpenSent → OpenConfirm → <strong>Established</strong>; only in Established are routes exchanged. When multiple paths to a prefix exist, the <strong>best-path algorithm</strong> picks one, in order: highest weight (Fortinet/Cisco-local) → highest LOCAL_PREF → locally originated → shortest AS_PATH → lowest origin (IGP&lt;EGP&lt;Incomplete) → lowest MED → eBGP over iBGP → lowest IGP cost to next-hop → oldest → lowest RID.</p>
+<h4 id="bgp1-process-level-configuration">BGP.1 Process-Level Configuration</h4>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a>config router bgp
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a>    set as 65010
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>    set router-id 10.255.255.1
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a>    set keepalive-timer 60                      # KEEPALIVE interval (s)
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>    set holdtime-timer 180                      # Session declared dead after this silence
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a>    set ebgp-multipath enable                   # ECMP across equal eBGP paths
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a>    set ibgp-multipath disable
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a>    set network-import-check enable             # Only advertise &#39;network&#39; prefixes present in RIB
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a>    set log-neighbour-changes enable            # Log session up/down transitions
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a>    set graceful-restart enable                 # RFC 4724 hitless restart / HA failover
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a>    set scan-time 60                            # Next-hop validation scan interval
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a>    set always-compare-med disable
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a>    set deterministic-med enable
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>as</code> — this router's Autonomous System number. BGP theory: the ASN prepended into AS_PATH on every eBGP advertisement, and the value that determines session <em>type</em> — a neighbor whose <code>remote-as</code> equals ours is iBGP, anything else is eBGP. Use 64512–65534 / 4200000000+ for private ASNs.</li>
+<li><code>router-id</code> — the 32-bit BGP Identifier exchanged in the OPEN message; it's the final tie-breaker of the best-path algorithm and must be unique between peers (duplicate RIDs refuse to peer). Set it explicitly to the loopback, same discipline as OSPF.</li>
+<li><code>keepalive-timer</code> / <code>holdtime-timer</code> — the liveness machinery. Hold time is <strong>negotiated down</strong> to the lower of the two peers' OPEN values; keepalive is then typically ⅓ of it. Lowering these (e.g. 20/60 or with BFD instead) is the main lever for failover speed on static peerings.</li>
+<li><code>ebgp-multipath</code> — installs multiple equal candidates (same weight/local-pref/AS_PATH length/MED) as ECMP instead of electing a single best path. Required for dual-ISP or dual-hub load sharing; without it BGP always installs exactly one path.</li>
+<li><code>network-import-check</code> — RFC-faithful behavior: a <code>config network</code> prefix is only advertised if a matching route exists in the RIB (BGP theory: you should only originate reachability you actually have). Disable only for deliberate advertisement of not-yet-routed aggregates.</li>
+<li><code>graceful-restart</code> — RFC 4724: peers keep forwarding on our stale routes while the BGP process restarts (crucial on HA clusters, where failover restarts bgpd on the new primary).</li>
+<li><code>scan-time</code> — how often BGP re-validates that each route's NEXT_HOP is still resolvable in the IGP/static RIB; recursive resolution failing = route withdrawn.</li>
+<li><code>deterministic-med</code> / <code>always-compare-med</code> — MED is only comparable between paths from the <strong>same</strong> neighboring AS by default (it's a hint <em>that</em> AS set). <code>deterministic-med</code> groups paths per-AS before comparing (sane, enable); <code>always-compare-med</code> compares MED across different ASes (only if your design defines MED globally).</li>
+</ul>
+<h4 id="bgp2-neighbors">BGP.2 Neighbors</h4>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span>
+<span class="normal"><a href="#__codelineno-9-19">19</a></span>
+<span class="normal"><a href="#__codelineno-9-20">20</a></span>
+<span class="normal"><a href="#__codelineno-9-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a>config router bgp
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>    config neighbor
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a>        edit &quot;203.0.113.1&quot;                      # eBGP: ISP transit
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a>            set remote-as 65001
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a>            set description &quot;ISP-A transit&quot;
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a>            set password &lt;md5-secret&gt;           # TCP MD5 (RFC 2385) session protection
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a>            set prefix-list-in &quot;PL-DEFAULT-ONLY&quot;
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a>            set route-map-out &quot;RM-ANNOUNCE-PA&quot;
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a>            set maximum-prefix 100
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a>            set maximum-prefix-threshold 80
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a>            set soft-reconfiguration enable
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a>            set bfd enable
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a>        next
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a>        edit &quot;10.255.255.2&quot;                     # iBGP: core peer via loopbacks
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a>            set remote-as 65010
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a>            set update-source &quot;Lo0&quot;
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a>            set next-hop-self enable
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a>            set soft-reconfiguration enable
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a>        next
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20"></a>    end
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>remote-as</code> — declares the expected peer AS; the OPEN message is checked against it (mismatch → NOTIFICATION, session torn down). Equal to local <code>as</code> = iBGP, different = eBGP — this single line changes next-hop handling, TTL, and re-advertisement rules per BGP theory.</li>
+<li><code>update-source</code> — which interface/IP sources the TCP/179 connection. Theory: the packets must arrive from exactly the IP the peer has configured as its neighbor, so loopback-to-loopback iBGP requires both sides to source from the loopback <strong>and</strong> have IGP/static reachability to it. This is also the standard pattern for BGP over IPsec/GRE tunnels (peer on the tunnel or loopback IPs) so the session survives any single physical path via the IGP. Fortinet's basic example uses exactly this for iBGP across a VPN.</li>
+<li><code>next-hop-self</code> — rewrites NEXT_HOP to our own address when advertising to this iBGP peer. Theory: iBGP does <strong>not</strong> change next-hop, so routes learned from eBGP carry the external next-hop (e.g. the ISP's IP) into the AS; interior routers can't resolve it and the route stays inactive. <code>next-hop-self</code> on border routers is the classic fix (alternative: redistribute the external subnet into the IGP).</li>
+<li><code>ebgp-enforce-multihop</code> + <code>set ebgp-multihop-ttl &lt;n&gt;</code> — eBGP sends TCP with <strong>TTL 1</strong> by default (peers assumed directly connected — a built-in safety). Loopback-based or multi-hop eBGP needs the TTL raised.</li>
+<li><code>password</code> — TCP MD5 authentication: every segment is signed, killing blind RST/ hijack attacks on the long-lived session. Always set on eBGP over shared/exposed media.</li>
+<li><code>soft-reconfiguration enable</code> — stores the peer's routes <strong>pre-policy</strong> (Adj-RIB-In) so <code>execute router clear bgp ... soft in</code> re-applies changed filters without bouncing the session. Costs memory; modern peers also negotiate the route-refresh capability which achieves the same without storage.</li>
+<li><code>maximum-prefix</code> (+ threshold %) — protection against a peer leaking a full table into you (classic outage cause): session is dropped past the limit.</li>
+<li><code>bfd enable</code> — sub-second failure detection decoupled from BGP timers; the BFD session (configured under <code>config system bfd</code> / interface) signals the routing protocol on path loss in ~150–300 ms.</li>
+<li><code>route-reflector-client enable</code> (on the RR, per iBGP neighbor) — relaxes the iBGP re-advertisement prohibition: the RR reflects routes between clients, replacing the full mesh; ORIGINATOR_ID/CLUSTER_LIST attributes take over loop prevention.</li>
+<li><code>allowas-in</code> / <code>remove-private-as</code> — AS_PATH manipulation: accept routes containing our own ASN (hub-and-spoke re-advertisement through a provider) / strip private ASNs before announcing upstream.</li>
+</ul>
+<p><strong>Dynamic peers (hub side of ADVPN / dial-up overlays):</strong></p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span>
+<span class="normal"><a href="#__codelineno-10-16">16</a></span>
+<span class="normal"><a href="#__codelineno-10-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>config router bgp
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a>    config neighbor-group
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>        edit &quot;SPOKES&quot;
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a>            set remote-as 65010
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a>            set next-hop-self enable
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>            set advertisement-interval 1
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>            set link-down-failover enable
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a>        next
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a>    end
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a>    config neighbor-range
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a>        edit 1
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a>            set prefix 10.254.0.0 255.255.0.0
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a>            set neighbor-group &quot;SPOKES&quot;
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a>            set max-neighbor-num 200
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a>        next
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a>    end
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>neighbor-group</code> + <code>neighbor-range</code> — accept sessions from <strong>any</strong> source inside the prefix and apply the group template: no per-spoke configuration, the scaling pattern for large overlays.</li>
+</ul>
+<h4 id="bgp3-originating-routes-networks-redistribution-aggregation">BGP.3 Originating Routes: Networks, Redistribution, Aggregation</h4>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span>
+<span class="normal"><a href="#__codelineno-11-15">15</a></span>
+<span class="normal"><a href="#__codelineno-11-16">16</a></span>
+<span class="normal"><a href="#__codelineno-11-17">17</a></span>
+<span class="normal"><a href="#__codelineno-11-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a>config router bgp
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a>    config network
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>        edit 1
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a>            set prefix 192.0.2.0 255.255.255.0
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a>        next
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a>    end
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a>    config redistribute &quot;static&quot;
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a>        set status enable
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a>        set route-map &quot;RM-STATIC-TO-BGP&quot;
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a>    end
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a>    config aggregate-address
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a>        edit 1
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a>            set prefix 10.11.0.0 255.255.0.0
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a>            set summary-only enable             # Suppress the contributing /24s
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a>            set as-set disable
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a>        next
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a>    end
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>config network</code> — originates the prefix with <strong>origin code IGP</strong> (best origin in path selection) if it exists in the RIB (see <code>network-import-check</code>). This is the clean, intentional way to announce your space.</li>
+<li><code>config redistribute</code> — imports static/connected/OSPF/RIP/ISIS routes, marked <strong>origin Incomplete</strong> (worst origin). Always constrain with a route-map: unfiltered redistribution is the textbook route-leak generator.</li>
+<li><code>aggregate-address</code> — creates a summary when at least one contributing route exists. <code>summary-only</code> suppresses the specifics (only the aggregate leaves — smaller global impact); <code>as-set</code> preserves the union of contributors' AS_PATHs inside the aggregate for loop-safety when aggregating across ASes.</li>
+</ul>
+<h4 id="bgp4-policy-prefix-lists-route-maps-and-the-best-path-levers">BGP.4 Policy: Prefix-Lists, Route-Maps, and the Best-Path Levers</h4>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span>
+<span class="normal"><a href="#__codelineno-12-12">12</a></span>
+<span class="normal"><a href="#__codelineno-12-13">13</a></span>
+<span class="normal"><a href="#__codelineno-12-14">14</a></span>
+<span class="normal"><a href="#__codelineno-12-15">15</a></span>
+<span class="normal"><a href="#__codelineno-12-16">16</a></span>
+<span class="normal"><a href="#__codelineno-12-17">17</a></span>
+<span class="normal"><a href="#__codelineno-12-18">18</a></span>
+<span class="normal"><a href="#__codelineno-12-19">19</a></span>
+<span class="normal"><a href="#__codelineno-12-20">20</a></span>
+<span class="normal"><a href="#__codelineno-12-21">21</a></span>
+<span class="normal"><a href="#__codelineno-12-22">22</a></span>
+<span class="normal"><a href="#__codelineno-12-23">23</a></span>
+<span class="normal"><a href="#__codelineno-12-24">24</a></span>
+<span class="normal"><a href="#__codelineno-12-25">25</a></span>
+<span class="normal"><a href="#__codelineno-12-26">26</a></span>
+<span class="normal"><a href="#__codelineno-12-27">27</a></span>
+<span class="normal"><a href="#__codelineno-12-28">28</a></span>
+<span class="normal"><a href="#__codelineno-12-29">29</a></span>
+<span class="normal"><a href="#__codelineno-12-30">30</a></span>
+<span class="normal"><a href="#__codelineno-12-31">31</a></span>
+<span class="normal"><a href="#__codelineno-12-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a>config router prefix-list
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>    edit &quot;PL-DEFAULT-ONLY&quot;
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>        config rule
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a>            edit 1
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a>                set prefix 0.0.0.0 0.0.0.0
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a>                unset ge
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a>                unset le
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a>            next
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a>        end
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a>    next
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a>end
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13"></a>config router route-map
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14"></a>    edit &quot;RM-PREFER-ISPA&quot;
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15"></a>        config rule
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16"></a>            edit 1
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17"></a>                set match-ip-address &quot;PL-ISPA-ROUTES&quot;
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18"></a>                set set-local-preference 200    # AS-wide preference (iBGP-propagated)
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19"></a>            next
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20"></a>            edit 100
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21"></a>                # implicit permit-all tail rule keeps other routes untouched
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22"></a>            next
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23"></a>        end
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24"></a>    next
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25"></a>    edit &quot;RM-DEPREF-BACKUP-OUT&quot;
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26"></a>        config rule
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27"></a>            edit 1
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28"></a>                set set-aspath &quot;65010 65010 65010&quot;   # AS_PATH prepend on advertisements
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29"></a>            next
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30"></a>        end
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31"></a>    next
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32"></a>end
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li>Prefix-lists match on prefix + length (<code>ge</code>/<code>le</code> give ranges, e.g. <code>set prefix 10.0.0.0 255.0.0.0</code>, <code>set le 24</code>); the primary matching tool for BGP filtering.</li>
+<li>Route-maps are ordered permit/deny rules with <code>match</code> and <code>set</code> clauses — BGP's policy engine. The <code>set</code> actions map directly onto the best-path algorithm, which is how you steer traffic:</li>
+<li><code>set-local-preference</code> — <strong>inbound/interior lever</strong>: LOCAL_PREF is compared 2nd, propagates through all iBGP, and defines the whole AS's preferred exit. Higher wins.</li>
+<li><code>set-aspath</code> (prepending) — <strong>outbound lever</strong>: artificially lengthens AS_PATH on your advertisements so the <em>rest of the internet</em> prefers your other link (step 4 of selection). Coarse but universal.</li>
+<li><code>set-metric</code> (MED) — polite hint to a <strong>directly neighboring AS</strong> about which of your multiple links to prefer inbound. Lower wins; only honored between paths from the same AS (see <code>deterministic-med</code>).</li>
+<li><code>set-community</code> / <code>match-community</code> (with <code>config router community-list</code>) — arbitrary route tags (<code>65010:100</code>); the standard signaling mechanism to ISPs (blackhole, no-export, regional-only) and inside your own policy. Requires <code>set send-community</code> standard on the neighbor (default on FortiOS).</li>
+<li><code>set-weight</code> — Fortinet/Cisco-local attribute, checked <strong>first</strong>, never advertised: per-router override that beats everything.</li>
+<li>Attach with <code>route-map-in</code> / <code>route-map-out</code> per neighbor. eBGP hygiene: <strong>always</strong> filter both directions — accept only what you expect, announce only your own aggregates.</li>
+</ul>
+<h4 id="bgp5-verification-commands">BGP.5 Verification Commands</h4>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get router info bgp summary</code></td>
+<td>Peer table: AS, uptime, FSM state / prefixes received. First stop for session health.</td>
+</tr>
+<tr>
+<td><code>get router info bgp neighbors 203.0.113.1</code></td>
+<td>Full peer detail: negotiated timers, capabilities, message counters, last NOTIFICATION reason.</td>
+</tr>
+<tr>
+<td><code>get router info bgp neighbors 203.0.113.1 routes</code></td>
+<td>Routes <strong>accepted</strong> from the peer (post-inbound-policy).</td>
+</tr>
+<tr>
+<td><code>get router info bgp neighbors 203.0.113.1 advertised-routes</code></td>
+<td>What we <strong>announce</strong> to the peer (post-outbound-policy) — verify filters here.</td>
+</tr>
+<tr>
+<td><code>get router info bgp network 203.0.113.0/24</code></td>
+<td>The BGP table entry: all paths, their attributes, and which was chosen best and <em>why</em>.</td>
+</tr>
+<tr>
+<td><code>get router info routing-table bgp</code></td>
+<td>Only BGP routes actually installed in the RIB.</td>
+</tr>
+<tr>
+<td><code>execute router clear bgp ip 203.0.113.1 soft in</code> / <code>soft out</code></td>
+<td>Re-apply policy without dropping the TCP session (needs soft-reconfig or route-refresh).</td>
+</tr>
+<tr>
+<td><code>execute router clear bgp ip 203.0.113.1</code></td>
+<td>Hard reset — tears down and re-establishes the session (disruptive).</td>
+</tr>
+<tr>
+<td><code>diagnose ip router bgp all enable</code> + <code>diagnose ip router bgp level info</code> + <code>diagnose debug enable</code></td>
+<td>bgpd debug: OPEN negotiation, UPDATE processing, policy hits. Disable afterwards.</td>
+</tr>
+<tr>
+<td><code>diagnose sniffer packet any 'tcp and port 179' 4</code></td>
+<td>Watch the session at packet level — the definitive tool when peers can't even reach Established (SYN unanswered, RSTs, wrong source IP).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example — <code>get router info bgp summary</code>:</strong></p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span>
+<span class="normal"><a href="#__codelineno-13-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a>BGP router identifier 10.255.255.1, local AS number 65010
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a>BGP table version is 14
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a>2 BGP AS-PATH entries
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a>Neighbor        V   AS     MsgRcvd MsgSent  TblVer InQ OutQ Up/Down    State/PfxRcd
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a>203.0.113.1     4   65001   152344  151201      14   0    0  5d02h11m         187
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a>10.255.255.2    4   65010     8812    8801      14   0    0  4d11h02m          42
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a>198.51.100.9    4   65002      121     138       0   0    0  never          Active
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li>A <strong>number</strong> in <code>State/PfxRcd</code> means Established — the FSM's only forwarding state — showing how many prefixes survived inbound policy. <code>0</code> while Established = session fine, inbound filter eating everything (or peer sending nothing): check <code>... routes</code> vs the peer's intent.</li>
+<li><code>Active</code>/<code>Connect</code> — the TCP session itself won't establish. Theory: Connect = we're trying the SYN, Active = retrying after failure. Causes: no route to peer, wrong <code>update-source</code>, TTL (missing <code>ebgp-multihop</code>), TCP/179 filtered, peer not configured. Confirm with the sniffer on port 179.</li>
+<li><code>Idle</code> — not even attempting: admin down (<code>set shutdown enable</code>), config error, or max-prefix violation penalty.</li>
+<li><code>OpenSent/OpenConfirm</code> flapping — TCP is fine but OPEN parameters are rejected: AS mismatch, duplicate RID, bad MD5 password, or hold-time expiry (MTU/CPU trouble).</li>
+<li><code>Up/Down</code> resetting frequently with Established = session flaps — check BFD/hold timers, MTU on tunnels, and <code>get router info bgp neighbors</code> last-error field.</li>
+</ul>
+<p><strong>Example — <code>get router info bgp network 0.0.0.0/0</code> (best-path reasoning):</strong></p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a>BGP routing table entry for 0.0.0.0/0
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a>Paths: (2 available, best #1, table Default-IP-Routing-Table)
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a>  65001
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a>    203.0.113.1 from 203.0.113.1 (203.0.113.99)
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a>      Origin IGP, localpref 200, valid, external, best
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a>      Community: 65010:100
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a>      Last update: Wed Aug  5 09:12:41 2026
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a>  65002 65002 65002 65001
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a>    198.51.100.9 from 198.51.100.9 (198.51.100.77)
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a>      Origin IGP, localpref 100, valid, external
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a>      Last update: Wed Aug  5 09:12:44 2026
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li>Read the tie-break directly against the algorithm: path #1 wins on <strong>localpref 200 vs 100</strong> (step 2), so the comparison never reaches AS_PATH — though the prepended <code>65002 65002 65002 65001</code> path would have lost step 4 anyway. This output is where "why is traffic leaving via ISP-A?" gets answered definitively.</li>
+<li><code>(203.0.113.99)</code> — the peer's BGP router-id; <code>valid</code> = next-hop resolvable; <code>external</code> = learned via eBGP; only paths marked <code>best</code> are candidates for the RIB.</li>
+</ul>
+<p><strong>Example — <code>get router info routing-table bgp</code>:</strong></p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a>B*      0.0.0.0/0 [20/0] via 203.0.113.1, port1, 5d02h11m
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a>B       10.20.0.0/16 [200/0] via 10.255.255.2 (recursive via 10.254.1.2), S2S-BRANCH1, 4d11h02m
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><code>[20/0]</code> vs <code>[200/0]</code> — FortiOS administrative distance encodes the theory split: <strong>eBGP 20</strong> (trusted like an IGP-external), <strong>iBGP 200</strong> (least trusted — interior reachability should come from the IGP). The second value is the MED.</li>
+<li><code>recursive via</code> — the iBGP route's NEXT_HOP (a loopback) was resolved through another RIB entry (the tunnel route): BGP's recursive next-hop resolution in action, and the thing that breaks (route withdrawn) when the IGP loses the loopback.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../static-routing/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Static Routing">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Static Routing
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../firewall/" class="md-footer__link md-footer__link--next" aria-label="Next: Firewall Objects &amp; Policies">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Firewall Objects & Policies
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Edm0ndDantes" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.footer", "navigation.path", "navigation.indexes", "toc.follow", "navigation.expand", "navigation.sections", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
