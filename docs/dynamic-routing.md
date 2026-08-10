@@ -4,6 +4,7 @@
 ### OSPF
 
 **Theory recap in one paragraph:** 
+
 - OSPF is a link-state IGP (RFC 2328). 
 - Every router floods Link-State Advertisements (LSAs) describing its links.
 - All routers in an area build an identical Link-State Database (LSDB) and independently run Dijkstra's SPF algorithm to compute shortest paths, using **cost** as the metric. 
