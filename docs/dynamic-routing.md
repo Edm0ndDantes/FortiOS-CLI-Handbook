@@ -7,7 +7,7 @@
 
 #### OSPF.1 Process-Level Configuration
 
-```text
+```text linenums="1"
 config router ospf
     set router-id 10.255.255.1
     set default-information-originate enable    # Advertise 0.0.0.0/0 as a Type-5 LSA
@@ -28,7 +28,7 @@ end
 
 #### OSPF.2 Areas
 
-```text
+```text linenums="1"
 config router ospf
     config area
         edit 0.0.0.0                            # Backbone — mandatory transit for all areas
@@ -50,7 +50,7 @@ end
 
 #### OSPF.3 Enabling OSPF: Network Statements
 
-```text
+```text linenums="1"
 config router ospf
     config network
         edit 1
@@ -69,7 +69,7 @@ end
 - A broad statement like `10.11.0.0/16` enrolls every matching interface at once (Fortinet's example uses this to cover all inter-router links); use exact /24s or interface-specific statements when you want tighter control over where adjacencies can form.
 - To advertise a subnet **without** forming adjacencies on it (e.g. a user VLAN), keep it in a network statement but make the interface passive:
 
-```text
+```text linenums="1"
 config router ospf
     set passive-interface "VLAN100-Users"
 end
@@ -79,7 +79,7 @@ end
 
 #### OSPF.4 Per-Interface Parameters (`ospf-interface`)
 
-```text
+```text linenums="1"
 config router ospf
     config ospf-interface
         edit "OSPF-Core-P2P"
@@ -109,7 +109,7 @@ end
 
 #### OSPF.5 Redistribution (ASBR Role) & Summarization
 
-```text
+```text linenums="1"
 config router ospf
     config redistribute "bgp"
         set status enable
@@ -144,7 +144,7 @@ end
 
 **Example — `get router info ospf neighbor`:**
 
-```text
+```text linenums="1"
 OSPF process 0, VRF 0:
 Neighbor ID     Pri   State           Dead Time   Address         Interface
 10.255.255.2    250   Full/Backup     00:00:36    10.11.101.2     port1
@@ -160,7 +160,7 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 
 **Example — `get router info routing-table ospf`:**
 
-```text
+```text linenums="1"
 O*E2    0.0.0.0/0 [110/10] via 10.11.102.3, port2, 01:09:48
 O       10.11.103.0/24 [110/2] via 10.11.102.3, port2, 00:54:49
                        [110/2] via 10.11.101.2, port1, 00:54:49
@@ -178,7 +178,7 @@ O E2    192.168.160.0/24 [110/10] via 10.11.102.3, port2, 01:45:21
 
 #### BGP.1 Process-Level Configuration
 
-```text
+```text linenums="1"
 config router bgp
     set as 65010
     set router-id 10.255.255.1
@@ -206,7 +206,7 @@ end
 
 #### BGP.2 Neighbors
 
-```text
+```text linenums="1"
 config router bgp
     config neighbor
         edit "203.0.113.1"                      # eBGP: ISP transit
@@ -243,7 +243,7 @@ end
 
 **Dynamic peers (hub side of ADVPN / dial-up overlays):**
 
-```text
+```text linenums="1"
 config router bgp
     config neighbor-group
         edit "SPOKES"
@@ -267,7 +267,7 @@ end
 
 #### BGP.3 Originating Routes: Networks, Redistribution, Aggregation
 
-```text
+```text linenums="1"
 config router bgp
     config network
         edit 1
@@ -294,7 +294,7 @@ end
 
 #### BGP.4 Policy: Prefix-Lists, Route-Maps, and the Best-Path Levers
 
-```text
+```text linenums="1"
 config router prefix-list
     edit "PL-DEFAULT-ONLY"
         config rule
@@ -355,7 +355,7 @@ end
 
 **Example — `get router info bgp summary`:**
 
-```text
+```text linenums="1"
 BGP router identifier 10.255.255.1, local AS number 65010
 BGP table version is 14
 2 BGP AS-PATH entries
@@ -373,7 +373,7 @@ Neighbor        V   AS     MsgRcvd MsgSent  TblVer InQ OutQ Up/Down    State/Pfx
 
 **Example — `get router info bgp network 0.0.0.0/0` (best-path reasoning):**
 
-```text
+```text linenums="1"
 BGP routing table entry for 0.0.0.0/0
 Paths: (2 available, best #1, table Default-IP-Routing-Table)
   65001
@@ -392,7 +392,7 @@ Paths: (2 available, best #1, table Default-IP-Routing-Table)
 
 **Example — `get router info routing-table bgp`:**
 
-```text
+```text linenums="1"
 B*      0.0.0.0/0 [20/0] via 203.0.113.1, port1, 5d02h11m
 B       10.20.0.0/16 [200/0] via 10.255.255.2 (recursive via 10.254.1.2), S2S-BRANCH1, 4d11h02m
 ```
