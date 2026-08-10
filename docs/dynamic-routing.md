@@ -3,7 +3,14 @@
 
 ### OSPF
 
-**Theory recap in one paragraph:** OSPF is a link-state IGP (RFC 2328). Every router floods Link-State Advertisements (LSAs) describing its links; all routers in an area build an identical Link-State Database (LSDB) and independently run Dijkstra's SPF algorithm to compute shortest paths, using **cost** as the metric. Routers discover each other with multicast **Hello** packets (224.0.0.5), progress through an adjacency state machine (Down → Init → 2-Way → ExStart → Exchange → Loading → **Full**), and on multi-access segments elect a **Designated Router (DR)** and **Backup DR (BDR)** to reduce adjacency count from O(n²) to O(n). Areas bound LSA flooding; area 0.0.0.0 is the **backbone** that all other areas must attach to. Routers injecting external routes (e.g. redistributed BGP/static) are **ASBRs**; routers joining areas are **ABRs**.
+**Theory recap in one paragraph:** 
+- OSPF is a link-state IGP (RFC 2328). 
+- Every router floods Link-State Advertisements (LSAs) describing its links.
+- All routers in an area build an identical Link-State Database (LSDB) and independently run Dijkstra's SPF algorithm to compute shortest paths, using **cost** as the metric. 
+- Routers discover each other with multicast **Hello** packets (224.0.0.5), progress through an adjacency state machine (Down → Init → 2-Way → ExStart → Exchange → Loading → **Full**), and on multi-access segments elect a **Designated Router (DR)** and **Backup DR (BDR)** to reduce adjacency count from O(n²) to O(n). 
+- Areas bound LSA flooding
+- Area 0.0.0.0 is the **backbone** that all other areas must attach to. 
+- Routers injecting external routes (e.g. redistributed BGP/static) are **ASBRs**; routers joining areas are **ABRs**.
 
 #### OSPF.1 Process-Level Configuration
 
